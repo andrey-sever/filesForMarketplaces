@@ -6,11 +6,13 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini', encoding='utf-8')
 
-for filenamme in os.listdir(config['other']['path'] + '/'):
+path = config['other']['path'] + '/'
+for filenamme in os.listdir(path):
     if filenamme.endswith('.xls'):
-        table = IncomingTable(f'data_in/{filenamme}').get_table()
-        print(''.join(table.columns))
-        print(table.get_name_seller)
+        incTable = IncomingTable(f'{path}{filenamme}')
+        table = incTable.get_table()
+        print(f'{incTable.get_name_seller()}: {table.columns}')
+        print(table.head())
 
 # for key in config['compare']:
 #     print(key + ': ' + config['compare'][key])

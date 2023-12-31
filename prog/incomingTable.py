@@ -17,8 +17,6 @@ class IncomingTable:
         self.__table = pd.read_excel(path)
         self.__name_seller = None
         self.processing()
-        # self.__path = path
-        # self.__table = None
 
     def get_table(self):
         return self.__table
@@ -32,12 +30,9 @@ class IncomingTable:
             self.__table = None
             return
         self.delete_columns()
+        self.rename_columns()
 
     def assign_name(self):
-        # config = configparser.ConfigParser()
-        # config.read('config.ini', encoding='utf-8')
-
-        # table_in = pd.read_excel(self.__path)
         str_in = ''.join(self.__table.columns)
         for key in self.__config['compare']:
             if self.__config['compare'][key] == str_in:
@@ -50,3 +45,8 @@ class IncomingTable:
         for i in columns_file:
             if i not in columns_leave:
                 del self.__table[i]
+
+    def rename_columns(self):
+        if self.__name_seller in self.__config['columns.rename']:
+            names_columns = list(self.__config['columns.rename'][self.__name_seller].split(','))
+            self.__table.columns = names_columns

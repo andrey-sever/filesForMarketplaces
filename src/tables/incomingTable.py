@@ -48,5 +48,5 @@ class IncomingTable:
 
     def rename_columns(self):
         if self.__name_seller in self.__config['columns.rename']:
-            names_columns = list(self.__config['columns.rename'][self.__name_seller].split(','))
-            self.__table.columns = names_columns
+            self.__table.columns = list(self.__config['columns.rename'][self.__name_seller].split(','))
+

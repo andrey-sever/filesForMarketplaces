@@ -5,6 +5,7 @@ import configparser
 class IncomingTable:
     """
     Создание таблицы из файла .xls.
+    Остаются нужные столбцы с переименованием.
     path - путь и название файла.
     name_seller - поставщик.
     get_table - возвращает таблицу из файла.
@@ -26,7 +27,7 @@ class IncomingTable:
 
     def processing(self):
         self.assign_name()
-        if self.__name_seller == None:
+        if self.__name_seller is None:
             self.__table = None
             return
         self.delete_columns()

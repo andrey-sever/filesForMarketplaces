@@ -13,5 +13,3 @@ def merge_tables(tables: list[pd.DataFrame]):
             continue
         new_table = pd.concat([new_table, table], sort=False, axis=0, ignore_index=True)
     return new_table
-
-# Изменение цены. Лучше в классе таблиц

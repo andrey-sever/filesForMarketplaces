@@ -30,8 +30,9 @@ class IncomingTable:
         if self.__name_seller is None:
             self.__table = None
             return
-        self.delete_columns()
+        self.required_columns()
         self.rename_columns()
+        self.final_price()
 
     def assign_name(self):
         str_in = ''.join(self.__table.columns)
@@ -40,14 +41,14 @@ class IncomingTable:
                 self.__name_seller = key
                 break
 
-    def delete_columns(self):
-        columns_leave = list(self.__config['columns'][self.__name_seller].split(','))
-        columns_file = list(self.__table.columns)
-        for i in columns_file:
-            if i not in columns_leave:
-                del self.__table[i]
+    def required_columns(self):
+        self.__table = self.__table[list(self.__config['columns'][self.__name_seller].split(','))]
 
     def rename_columns(self):
         if self.__name_seller in self.__config['columns.rename']:
             self.__table.columns = list(self.__config['columns.rename'][self.__name_seller].split(','))
 
+    def final_price(self):
+        column_name_price = self.__config['price']['name']
+        ratio = float(self.__config['price']['ratio'])
+        self.__table[column_name_price] = self.__table[column_name_price] * ratio

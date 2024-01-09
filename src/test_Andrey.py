@@ -17,7 +17,7 @@ for filename in os.listdir(path):
         print(f'{incTable.get_name_seller()}: {table.columns}')
         print(table.info)
 newTable = merge_tables(list_tables)                    #
-newTable.to_excel('D:\\new_table.xlsx', index=False)    # Соединенные таблицы и сброс в excel
+newTable.to_excel('/home/andrey/new_table.xlsx', index=False)    # Соединенные таблицы и сброс в excel
 print(newTable.info)                                    #
 
 # for key in config['compare']:

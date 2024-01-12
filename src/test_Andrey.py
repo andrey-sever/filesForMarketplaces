@@ -5,7 +5,7 @@ import configparser
 from tables.utilities_tables import merge_tables
 
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
+config.read('incoming.ini', encoding='utf-8')
 
 list_tables = []
 path = config['other']['path'] + '/'

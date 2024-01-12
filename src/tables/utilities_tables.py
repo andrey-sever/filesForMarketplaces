@@ -3,7 +3,7 @@ import pandas as pd
 
 def merge_tables(tables: list[pd.DataFrame]):
     """
-    Соединение таблиц из входящеко списка в
+    Соединение таблиц из входящего списка в
     одну таблицу. Таблицы DataFrame
     """
     new_table = pd.DataFrame()

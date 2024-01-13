@@ -12,10 +12,10 @@ path = config['other']['path'] + '/'
 for filename in os.listdir(path):
     if filename.endswith('.xls'):
         incTable = IncomingTable(f'{path}{filename}')
-        table = incTable.get_table()
-        list_tables.append(table) #сохранить в список
-        print(f'{incTable.get_name_seller()}: {table.columns}')
-        print(table.info)
+        table_df = incTable.get_table_df()
+        list_tables.append(table_df) #сохранить в список
+        print(f'{incTable.get_name_seller()}: {table_df.columns}')
+        print(table_df.info)
 newTable = merge_tables(list_tables)                    #
 newTable.to_excel('/home/andrey/new_table.xlsx', index=False)    # Соединенные таблицы и сброс в excel
 print(newTable.info)                                    #

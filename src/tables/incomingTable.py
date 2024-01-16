@@ -21,7 +21,7 @@ class IncomingTable:
         self.__name_seller = None
         self.processing()
 
-    def get_table_df(self):
+    def get_table(self):
         return self.__df
 
     def get_name_seller(self):
@@ -38,7 +38,7 @@ class IncomingTable:
 
     def assign_name(self):
         """
-        Назначение имени поаставщика файлу
+        Назначение имени поаставщика объекту
         """
         str_in = ''.join(self.__df.columns)
         for key in self.__config['compare']:
@@ -67,3 +67,5 @@ class IncomingTable:
         column_name_price = self.__config['price']['name']
         ratio = float(self.__config['price']['ratio'])
         self.__df[column_name_price] = self.__df[column_name_price] * ratio
+
+#ToDo: path подумать откуда брать, можтет общий ini, или из своего ini

@@ -23,4 +23,7 @@ def add_balance_price(path_file_in: str, general_price_list: pd.DataFrame):
     """
     df_in = pd.read_excel(path_file_in)
     for index, row in df_in.iterrows():
-        print(row['Артикул'])
+        found_string = general_price_list.loc[general_price_list['Артикул'] == row['Артикул']]
+        df_in.at[index, 'Остаток'] = found_string['Остаток']
+        df_in.at[index, 'Цена'] = found_string['Цена']
+    df_in.to_excel('data_in/Озон_цены_остатки.xlsx', index=False)

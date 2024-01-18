@@ -26,11 +26,17 @@ def add_balance_price(data_in: PatternTable, general_price_list: pd.DataFrame):
     df_in = data_in.get_table()
     name_quantity = data_in.get_matching()['Остаток']
     name_price = data_in.get_matching()['Цена']
+
     for index, row in df_in.iterrows():
         found_string = general_price_list.loc[general_price_list['Артикул'] == row['Артикул']]
-        if name_quantity is df_in.columns:
+        if found_string.empty:
+            continue
+
+        # Если колонка существует
+        if {name_quantity}.issubset(df_in.columns):
             df_in.at[index, name_quantity] = found_string['Остаток']
-        if name_price is df_in.columns:
+        if {name_price}.issubset(df_in.columns):
             df_in.at[index, name_price] = found_string['Цена']
+
     path_out = f'data_out/{data_in.get_name_out()}.xlsx'
     df_in.to_excel(path_out, index=False)

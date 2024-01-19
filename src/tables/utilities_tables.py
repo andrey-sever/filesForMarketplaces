@@ -19,23 +19,25 @@ def merge_tables(tables: list[pd.DataFrame]):
 def add_balance_price(data_in: PatternTable, general_price_list: pd.DataFrame):
     """
     Добавление в файл остатка и цены. Можно по отдельности.
-    :param path_file_in: путь к файлу, куда добавлять
+    :param data_in: объект шаблона
     :param general_price_list: общий прайс лист в формате DataFrame
-    :return: сохраняет файл по тому же пути
+    :return: сохраняет файл в папку data_out
     """
     df_in = data_in.get_table()
     name_quantity = data_in.get_matching()['Остаток']
     name_price = data_in.get_matching()['Цена']
+    # Если колонка существует
+    fill_quantity = {name_quantity}.issubset(df_in.columns)
+    fill_price = {name_price}.issubset(df_in.columns)
 
     for index, row in df_in.iterrows():
         found_string = general_price_list.loc[general_price_list['Артикул'] == row['Артикул']]
         if found_string.empty:
             continue
 
-        # Если колонка существует
-        if {name_quantity}.issubset(df_in.columns):
+        if fill_quantity:
             df_in.at[index, name_quantity] = found_string['Остаток']
-        if {name_price}.issubset(df_in.columns):
+        if fill_price:
             df_in.at[index, name_price] = found_string['Цена']
 
     path_out = f'data_out/{data_in.get_name_out()}.xlsx'
